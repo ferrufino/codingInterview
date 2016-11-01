@@ -21,6 +21,15 @@ using namespace std;
  
  1's are represented as rocks
  */
+/*
+Approach:
+create matrix of same dimensions
+copy first row and column, if it is a rock 0 else a 1
+traverse matrix from second row and second col
+if is a rock at pos i,j equals 0
+else
+max of one before, diagonal left, or up
+*/
 pair<int,int> location;
 int size;
 
