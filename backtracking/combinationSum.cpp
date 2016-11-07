@@ -16,30 +16,35 @@ using namespace std;
 #include <set>
 #include <unordered_set>
 
-vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-    vector<vector<int>> result;
-    vector<int> combination;
+void backtrack(vector<int> candidate, vector<int>& candidates, int target, vector<vector<int>> &ans, int position = 0){
     
-    if (candidates.empty()) { return result; }
-    sort(candidates.begin(), candidates.end());
-    findCombinationSum(candidates, target, combination, result);
+    if(target < 0)
+        return;
     
-    return result;
-}
-
-void findCombinationSum(vector<int>& candidates, int target, vector<int>& combination, vector<vector<int>>& result, int startPos = 0) {
-    if (target == 0) {
-        result.push_back(combination);
+    if(target == 0){
+        ans.push_back(candidate);
         return;
     }
     
-    for (int i = startPos; i < candidates.size(); ++i) {
-        if (candidates[i] > target) { break; }
-        combination.push_back(candidates[i]);
-        findCombinationSum(candidates, target - candidates[i], combination, result, i);
-        combination.pop_back();
+    for(int i = position; i<candidates.size(); i++){
+        if(candidates[i]>target) break;
+        candidate.push_back(candidates[i]);
+        backtrack(candidate, candidates, target-candidates[i], ans, i);
+        candidate.pop_back();
     }
+    
+}
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    
+    if(candidates.empty() || !target) return vector<vector<int>>();
+    vector<vector<int>> ans;
+    vector<int> candidate;
+    
+    sort(candidates.begin(), candidates.end());
+    backtrack(candidate, candidates, target, ans);
+    
+    return ans;
 }
 int main(){
-      
+    
 }
